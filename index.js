@@ -1,20 +1,39 @@
-function obtenerNumeroSecreto () {
-let valorNumero = document.getElementById("numeroSecreto").value;
-let floatNumero = parseFloat(valorNumero)
-let numeroSecreto = Math.floor(Math.random() *100) + 1;
-let adivinado = false;
+// Función para generar un número aleatorio entre 1 y 100
+function generarNumeroSecreto() {
+  return Math.floor(Math.random() * 100) + 1;
+}
 
-while (!adivinado) {
+// Función principal para adivinar el número secreto
+function adivinarNumeroSecreto() {
+  let numeroSecreto = generarNumeroSecreto();
+  let intentos = [];
 
-if (!isNaN(floatNumero)) {
-    if (floatNumero === numeroSecreto) {
-        alert("¡Adivinaste el número secreto");
-        adivinado = true;
-    } else {
-        alert("El número secreto es incorrecto. ¡Intenta nuevamente");
+  while (true) {
+    let inputNumero = prompt("Adivina el número secreto (entre 1 y 100):");
+
+    // Verificar si el input es un número válido
+    let numero = parseFloat(inputNumero);
+    if (isNaN(numero)) {
+      alert("Por favor, ingresa un número válido.");
+      continue;
     }
-} else {
-    alert("Porcfavoringresa un número válido");
+
+    // Agregar el intento a la lista
+    intentos.push(numero);
+
+    // Verificar si el número es el secreto
+    if (numero === numeroSecreto) {
+      // Mostrar mensaje de felicitaciones
+      let mensaje = "¡Felicidades! Adivinaste el número secreto.\n";
+      mensaje += "Lista de números introducidos: " + intentos.join(", ");
+      alert(mensaje);
+      break;
+    } else {
+      // Mostrar mensaje de error y solicitar otro intento
+      alert("Número incorrecto. Inténtalo nuevamente.");
+    }
+  }
 }
-}
-}
+
+// Iniciar el juego al cargar la página
+adivinarNumeroSecreto();
